@@ -2,9 +2,9 @@
 A simple CLI tool and module to parse websites and extract specific information.
 
 ## Installation
-Clone the repository. The parse script requires urllib and  bs4. Run the following command to install both packages:
+Clone the repository. The parse script requires bs4. Run the following command to install the dependency:
 ```
-pip install urllib bs4
+pip install bs4
 ```
 
 ## Usage
