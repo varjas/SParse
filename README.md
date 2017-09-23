@@ -1,6 +1,4 @@
 # SParse
-A simple CLI tool and module to parse websites and extract specific information.
-
 ## Installation
 Clone the repository. The parse script requires bs4. Run the following command to install the dependency:
 ```
@@ -88,4 +86,7 @@ The sequence below will filter for any element that uses the `div` tag, and then
 ```
 div > p
 ```
+
+## License
+Code released under the [MIT License](LICENSE.md).
 
