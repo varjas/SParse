@@ -1,6 +1,6 @@
 # SParse
 ## Installation
-Clone the repository. The parse script requires bs4. Run the following command to install the dependency:
+Clone the repository. Run the following command to install the bs4 dependency:
 ```
 pip install bs4
 ```
@@ -88,5 +88,5 @@ div > p
 ```
 
 ## License
-Code released under the [MIT License](LICENSE.md).
+Code released under the [MIT License](LICENSE.txt).
 
