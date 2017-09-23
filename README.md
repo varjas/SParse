@@ -22,6 +22,7 @@ sparse.sparse(url, parameters)
 ```
 This function will return a `list` of data that is found.
 
+## Filter Parameters
 ### Simple Filters
 The filtering parameters can be any common identifier for html elements, with notation for different types of filters:
 
