@@ -4,11 +4,16 @@ from bs4 import BeautifulSoup as bs
 def getData(url):
 	print('Requesting resource')
 	# Request url
-	source = request.urlopen(url)
-	# Parse html
-	data = bs(source, 'html.parser')	
-	print('Resource returned')
-	return data
+	try:
+		source = request.urlopen(url)
+	except Exception as e:
+		print(e)
+		return False
+	else:
+		# Parse html
+		data = bs(source, 'html.parser')	
+		print('Resource returned')
+		return data
 
 def selectData(element, returnAttribute):
 	results, value = [], ''
@@ -47,20 +52,18 @@ def filterData(data, parameters):
 	# Return output data
 	return results
 
-def sparse(url, parameters):
+def sparse(url, parameters, data=False):
 	results = []
 	# Skip processing if filter values aren't set
 	if parameters == '':
 		print('A filter must be set')
 	else:
-		# Retrieve URL data
-		try:
+		if data is False:
+			# Retrieve URL data
 			data = getData(source)
-		except ValueError:
-			print('Invalid URL')
-		except error.URLError as e:
-			print(e)
-		else:
+
+		# If data was included or obtained
+		if data is not False:
 			# Filter data
 			results = filterData(
 				data=data,
@@ -73,24 +76,38 @@ def sparse(url, parameters):
 
 # Main
 if __name__ == '__main__':
+	active = True
 	# Define parameters
 	source = input('Target URL: ')
-	parameters = input('Filter parameters: ')
-	# Derive filename from url
 	fileName = parse.urlparse(source).netloc.strip('/') + '.txt'
+	
+	data = getData(source)
+	if data is False:
+		active = False
 
-	# Run parse function
-	results = sparse(source, parameters)
+	try:
+		while active is True:
+			parameters = input('Filter parameters: ')
+			# Derive filename from url
+			if parameters == '':
+				print('A filter must be set')
+			else:
+				# Run parse function
+				results = sparse(source, parameters, data)
 
-	# Output results information to user
-	if len(results) > 0:
-		print('Example results:')
-		for item in results[0:10]:
-			print(item)
-		# Save data
-		saveData = input('Save the data? (y/n): ')
-		if saveData == 'y' or saveData == 'yes':
-			with open(fileName, 'w') as file:
-				for line in results:
-					file.write(line + '\n')
-			print('Saved as: ' + fileName)
+				# Output results information to user
+				if len(results) > 0:
+					print('Example results:')
+					for item in results[0:10]:
+						print(item)
+					# Save data
+					saveData = input('Save the data? (y/n) (default=n) : ')
+					if saveData == 'y' or saveData == 'yes':
+						with open(fileName, 'w') as file:
+							for line in results:
+								file.write(line + '\n')
+						print('Saved as: ' + fileName)
+						active = False
+	except KeyboardInterrupt:
+		print('')
+		active = False

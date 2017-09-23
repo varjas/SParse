@@ -8,7 +8,7 @@ pip install urllib bs4
 ```
 
 ## Usage
-### Script
+### CLI Script
 Once installed, run the following command in the directory with the script:
 ```
 python3 sparse/sparse.py
@@ -17,39 +17,34 @@ python3 sparse/sparse.py
 The program will prompt you for a full url, such as: `https://www.google.com`, and then for a list of filtering parameters. After filtering, the results can be saved as a .txt file.
 
 ### Module
-The module can also be imported:
+The module can also be imported, and the `sparse` function used with a URL and filter parameters (both are `str` inputs):
 ```python
 from sparse import sparse
-```
-
-And the `sparse` function used directly with a `str` URL and filter parameters:
-```
 sparse.sparse(url, parameters)
 ```
+This function will return a `list` of data that is found.
 
 ### Simple Filters
 The filtering parameters can be any common identifier for html elements, with notation for different types of filters:
 
-`.class` filters elements by a style class, such as:
-	- `.title`
-	- `.container`
-	- `.default`
-	- `.comment`
-`tag` filters elements by tag, such as:
-	- `div`
-	- `a`
-	- `h1`
-	- `p`
-`[attribute]` filters elements by attributes, such as:
-	- `[href]`
-	- `[property]`
-	- `[data-id]`
-	- `[role]`
-`#id` filters elements by id, such as:
-	- `#15315`
-	- `#subtitle`
-	- `#contents`
-	- `#main`
+#### Class
+Use the `.class` notation, for instance:
+`.some-style` will find elements that have `class="some-style"`.
+
+#### Tag
+Use the `tag` notation, for instance:
+`div` will find elements that use the `<div>` tag.
+
+#### Attribute
+Use the `[attribute]` notation, for instance:
+`[data-id]` will find elements that have `data-id="someValue"`.
+
+#### ID
+Use the `#id` notation, for instance:
+`#contents` will find the element that has `id="contents"`.
+
+#### Return Values
+Results are returned as a `list`. If the CLI script is used, results can be saved on separate lines in a .txt file.
 
 By default, all text within the selected elements will be returned, including subelements.
 
