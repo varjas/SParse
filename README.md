@@ -85,7 +85,7 @@ div [property]
 Elements found with the last filter will be used for data extraction.
 
 ### Advanced Filters
-Additional notation for filters can be used to provide more specific selectivity. Other than usage of the `@` symbol in this package, all notation found in the [CSS selectors section](http://beautiful-soup-4.readthedocs.io/en/latest/#css-selectors) of the BeautifulSoup4 documentation should work.
+Additional notation for filters can be used to provide more specific selectivity. Other than usage of the `@` symbol in this package, all notation found in the [CSS selectors section](http://beautiful-soup-4.readthedocs.io/en/latest/#css-selectors) of the Beautiful Soup 4 documentation should work.
 
 The sequence below will filter for any element that uses the `div` tag, and then find direct sublements that use the `p` tag:
 ```
