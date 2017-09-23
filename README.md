@@ -1,9 +1,11 @@
 # SParse
 ## Installation
-Clone the repository. Run the following command to install the bs4 dependency:
+Clone the repository, and run the following command to install the bs4 dependency:
 ```
 pip install bs4
 ```
+
+SParse has only been tested on Python 3.6.2.
 
 ## Usage
 ### CLI Script
