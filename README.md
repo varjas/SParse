@@ -14,6 +14,8 @@ python3 sparse/sparse.py
 
 The program will prompt you for a full url, such as: `https://www.google.com`, and then for a list of filtering parameters. After filtering, the results can be saved as a .txt file.
 
+The program can be exited with `Ctrl` + `C` (`^C`), or will exit automatically after saving out data.
+
 ### Module
 The module can also be imported, and the `sparse` function used with a URL and filter parameters (both are `str` inputs):
 ```python
