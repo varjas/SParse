@@ -6,11 +6,12 @@ def getData(url):
 	# Request url
 	try:
 		source = request.urlopen(url)
+	# Return any errors
 	except Exception as e:
 		print(e)
 		return False
+	# Parse html if request was successful
 	else:
-		# Parse html
 		data = bs(source, 'html.parser')	
 		print('Resource returned')
 		return data
@@ -32,13 +33,12 @@ def selectData(element, returnAttribute):
 	return results
 
 def filterData(data, parameters):
-	# Define list for results
 	results, returnAttribute = [], False
 	# Determine if an attribute should be returned
 	if parameters[-1] == '@':
 		# Remove @ symbol from filter
 		parameters = parameters[:-1]
-		# Extract last attribute tag
+		# Separate last attribute tag from other parameters
 		returnAttribute = parameters.split('[')[-1][:-1]
 
 	# Select elements from data
@@ -49,7 +49,6 @@ def filterData(data, parameters):
 		# Select data and append results
 		results = results + selectData(element, returnAttribute)
 
-	# Return output data
 	return results
 
 def sparse(url, parameters, data=False):
@@ -58,8 +57,8 @@ def sparse(url, parameters, data=False):
 	if parameters == '':
 		print('A filter must be set')
 	else:
+		# Get data if not included with function call (included for CLI session)
 		if data is False:
-			# Retrieve URL data
 			data = getData(source)
 
 		# If data was included or obtained
@@ -76,38 +75,46 @@ def sparse(url, parameters, data=False):
 
 # Main
 if __name__ == '__main__':
+	# Variable to track if session is active
 	active = True
-	# Define parameters
+	# Define url and generate filename
 	source = input('Target URL: ')
 	fileName = parse.urlparse(source).netloc.strip('/') + '.txt'
 	
+	# Get data
 	data = getData(source)
+	# Stop interactive session if no data was returned
 	if data is False:
 		active = False
 
+	# Wrap session to allow ctrl-c exit
 	try:
+		# If session is active
 		while active is True:
 			parameters = input('Filter parameters: ')
-			# Derive filename from url
 			if parameters == '':
 				print('A filter must be set')
+			# And parameters have been set
 			else:
 				# Run parse function
 				results = sparse(source, parameters, data)
 
-				# Output results information to user
+				# Output top 10 results (if any) to user
 				if len(results) > 0:
 					print('Example results:')
 					for item in results[0:10]:
 						print(item)
-					# Save data
+					# Check if the data should be saved
 					saveData = input('Save the data? (y/n) (default=n) : ')
 					if saveData == 'y' or saveData == 'yes':
+						# Save data
 						with open(fileName, 'w') as file:
 							for line in results:
 								file.write(line + '\n')
 						print('Saved as: ' + fileName)
+						# End session
 						active = False
+	# End session
 	except KeyboardInterrupt:
 		print('')
 		active = False
